@@ -40,4 +40,5 @@ empty_order();
 add_to_order(1, 2);
 add_to_order(123, 7);
 last_combo(1237);
-other_combos(127);
+other_combos(24);
+
