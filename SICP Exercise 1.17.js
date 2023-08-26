@@ -12,16 +12,16 @@ function halve(a) {
 
 function fast_times(a, b) {
     return a >= b
-        ? fast_times_iter(a, b)
-        : fast_times_iter(b, a);
+        ? fast_times_actual(a, b)
+        : fast_times_actual(b, a);
 }
 
-function fast_times_iter(a, b) {
+function fast_times_actual(a, b) {
     return b === 1
         ? a
         : is_even(b)
-        ? fast_times(double(a), halve(b))
-        : a + fast_times(a, b-1);
+        ? fast_times_actual(double(a), halve(b))
+        : a + fast_times_actual(a, b-1);
 }
 
 fast_times(3, 500);
