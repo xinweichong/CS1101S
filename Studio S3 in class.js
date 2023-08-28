@@ -1,8 +1,8 @@
 import {beside, stack, stack_frac, beside_frac, blank, square, heart, ribbon, circle, show} from "rune";
 
 function moony_1(bottom_right) {
-    return stack(beside_frac(circle, blank),
-                 beside_frac(square, bottom_right));
+    return stack(beside(circle, blank),
+                 beside(square, bottom_right));
 }
 
 function moony_3(bottom_right, n) {
