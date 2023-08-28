@@ -17,11 +17,11 @@ function fast_times(a, b) {
 }
 
 function fast_times_iter(a, b, c) {
-    return b === 1
-        ? a
+    return b === 0
+        ? c
         : is_even(b)
         ? fast_times_iter(double(a), halve(b), c)
-        : a + fast_times_iter(a, b-1);
+        : fast_times_iter(a, b-1, a+c);
 }
 
 fast_times(3, 500);
