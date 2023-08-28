@@ -19,4 +19,4 @@ function integral(func, a, b, n) {
     return (h/3)*((func(a) + func(b)) + 4*sum(func, f(1), next, f(n-1)) + 2*sum(func, f(2), next, f(n-2)));
 }
 
-integral(cube, 0, 1, 100);
+integral(cube, 0, 1, 1000);
