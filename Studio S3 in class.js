@@ -1,16 +1,22 @@
-import {beside, stack, blank, square, heart, show} from "rune";
+import {beside, stack, stack_frac, beside_frac, blank, square, heart, ribbon, circle, show} from "rune";
 
-function f1(rune_1, n, rune_2) {
-    return n === 0
-        ? rune_2
-        : f1(rune_1, n - 1, beside(rune_1, stack(blank, rune_2)));
+function moony_1(bottom_right, n) {
+    return stack_frac((n - 1) / n,
+                      beside_frac((n - 1) / n, circle, blank),
+                      beside_frac((n - 1) / n, square, bottom_right));
 }
 
-function f2(rune, n) {
-    return n === 0
-        ? rune
-        : stack(beside(blank, f2(rune, n - 1)), square);
+/*function moony_2(n) {
+    return n === 1
+        ? circle
+        : moony_1(moony_2(n-1));
+}*/
+
+function moony(n) {
+    return n === 1
+        ? circle
+        : moony_1(moony(n-1), n);
 }
 
-show(f1(square, 3, heart));
-show(f2(heart, 3));
+show(moony_2(5));
+show(moony(5));
