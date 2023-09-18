@@ -31,19 +31,27 @@ function subsets(xs) {
 //display_list(subsets(list(1, 2, 3)));
 
 
-function permutations(xs) {
+/*function permutations(xs) {
     if (is_null(xs)) {
         return list(null);
     } else {
+        //
+        //const map_first = map(x, permutations(tail(xs)));
         
-        const map_heads = map(x => pair(x, permutations(filter(y => !equal(x, y), xs))), xs);
+        //permutations without first
+        const permute_without_first = x => remove(x, xs);
         
-        //const without_head = permutations(map_heads);
-        
-        //const use_head = map(x => pair(head(xs), x), without_head);
-        
-        return map_heads;
+        return first;
     }
+    
+}*/
+
+function permutation_2(xs) {
+    return is_null(xs) 
+           ? list(null)
+           : accumulate(append,
+                        null, 
+                        map(x => map(ys => pair(x, ys), permutation_2(remove(x, xs))), xs));
 }
 
-display_list(permutations(list(1, 2, 3)));
+display_list(permutation_2(list(1, 2, 3)));
