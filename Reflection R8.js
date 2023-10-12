@@ -23,9 +23,40 @@
         return "Account disabled";
     }
     
-    return withdraw;
+    function withdraw2(amount, attempt) {
+        
+        if (attempt === password) {
+            count = 0;
+            if (balance >= amount) {
+                balance = balance - amount;
+                return balance;
+            } else {
+                return "Insufficient funds";
+            }
+        } else if (count === 3) {
+            return "Account disabled";
+        } else {
+            count = count + 1;
+            return "Wrong password, no withdraw";
+        }
+        
+        
+    }
     
-}*/
+    return withdraw2;
+    
+}
+
+const W1 = make_withdraw(100, "a");
+display(W1(20, "a"));
+display(W1(40, "b"));
+display(W1(40, "c"));
+display(W1(20, "a"));
+display(W1(40, "b"));
+display(W1(40, "c"));
+display(W1(40, "c"));
+display(W1(40, "a")); */
+
 
 let commission = 25;
 
