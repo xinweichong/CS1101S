@@ -1,4 +1,4 @@
-function d_filter_wrong(pred, xs) {
+/*function d_filter_wrong(pred, xs) {
     let temp = xs;
     
     while (!pred(head(temp))) {
@@ -26,7 +26,7 @@ function d_filter_wrong(pred, xs) {
     set_tail(mark, target);
     
     return xs;
-}
+}*/
 
 
 function d_filter(pred, xs) {
