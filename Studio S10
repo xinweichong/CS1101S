@@ -1,0 +1,68 @@
+/*const LL = list(3, 5, 2, 4, 1);
+
+function bubblesort_list(L) {
+    const len = length(L);
+    
+    for (let i = len - 1; i >= 1; i = i - 1) {
+        let iter = L;
+        let mark = L;
+        let highest = 0;
+    
+        for (let count = 0; count <= i; count = count + 1) {
+            if (head(iter) > highest) {
+                highest = head(iter);
+                mark = iter;
+            }
+            if (is_null(tail(iter))) {
+                break;
+            } else {
+                iter = tail(iter);
+            }
+        }
+        set_head(mark, head(iter));
+        set_head(iter, highest);
+    }
+}
+
+bubblesort_list(LL);
+LL;*/
+
+
+const mem = [];
+
+function read(amount, kinds) {
+    return (mem[kinds] === undefined)
+           ? undefined
+           : mem[kinds][amount];
+}
+
+function write(amount, kinds, value) {
+    if (mem[kinds] === undefined) {
+        mem[kinds] = [];
+    }
+    mem[kinds][amount] = value;
+}
+
+function first_denom(kinds) {
+    return kinds === 1 ? 5 :
+           kinds === 2 ? 10 :
+           kinds === 3 ? 20 :
+           kinds === 4 ? 50 :
+           kinds === 5 ? 100 : 0;
+}
+
+function mcc(amount, kinds) {
+    if (read(amount, kinds) !== undefined) {
+        return read(amount, kinds);
+    } else {
+        const result = amount === 0
+                       ? 1
+                       : amount < 0 || kinds === 0
+                       ? 0
+                       : mcc(amount, kinds - 1) + mcc(amount - first_denom(kinds), kinds);
+        write(amount, kinds, result);
+        return result;
+    }
+}
+
+mcc(365, 5);
