@@ -23,16 +23,16 @@ LL;*/
 const mem = [];
 
 function read(amount, kinds) {
-    return (mem[kinds] === undefined)
+    return (mem[amount] === undefined)
            ? undefined
-           : mem[kinds][amount];
+           : mem[amount][kinds];
 }
 
 function write(amount, kinds, value) {
-    if (mem[kinds] === undefined) {
-        mem[kinds] = [];
+    if (mem[amount] === undefined) {
+        mem[amount] = [];
     }
-    mem[kinds][amount] = value;
+    mem[amount][kinds] = value;
 }
 
 function first_denom(kinds) {
