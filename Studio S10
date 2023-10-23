@@ -1,34 +1,26 @@
-const LL = list(3, 5, 2, 4, 1);
+/*const LL = list(3, 5, 2, 4, 1);
 
 function bubblesort_list(L) {
     const len = length(L);
     
     for (let i = len - 1; i >= 1; i = i - 1) {
         let iter = L;
-        let mark = L;
-        let highest = 0;
-    
-        for (let count = 0; count <= i; count = count + 1) {
-            if (head(iter) > highest) {
-                highest = head(iter);
-                mark = iter;
+        for (let count = 0; count < i; count = count + 1) {
+            if (head(iter) > head(tail(iter))) {
+                const temp = head(iter);
+                set_head(iter, head(tail(iter)));
+                set_head(tail(iter), temp);
             }
-            if (is_null(tail(iter))) {
-                break;
-            } else {
-                iter = tail(iter);
-            }
+            iter = tail(iter);
         }
-        set_head(mark, head(iter));
-        set_head(iter, highest);
     }
 }
 
 bubblesort_list(LL);
-LL;
+LL;*/
 
 
-/*const mem = [];
+const mem = [];
 
 function read(amount, kinds) {
     return (mem[kinds] === undefined)
@@ -52,7 +44,7 @@ function first_denom(kinds) {
 }
 
 function mcc(amount, kinds) {
-    if (read(amount, kinds) !== undefined) {
+    if (amount >= 0 && kinds >= 0 && (read(amount, kinds) !== undefined)) {
         return read(amount, kinds);
     } else {
         const result = amount === 0
@@ -60,9 +52,12 @@ function mcc(amount, kinds) {
                        : amount < 0 || kinds === 0
                        ? 0
                        : mcc(amount, kinds - 1) + mcc(amount - first_denom(kinds), kinds);
-        write(amount, kinds, result);
+                       
+        if (amount >= 0 && kinds >= 0) {
+            write(amount, kinds, result);
+        }
         return result;
     }
 }
 
-mcc(365, 5);*/
+mcc(365, 5);
