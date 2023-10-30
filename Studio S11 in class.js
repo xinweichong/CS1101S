@@ -18,12 +18,14 @@ function interleave_stream_append(s1, s2) {
             : pair(head(s1), () => interleave_stream_append(s2, stream_tail(s1)));
 }
 
+//1e
 function stream_pairs3(s) {
-    return is_null(s) 
+    return is_null(s) || is_null(stream_tail(s))
             ? null
             : pair( pair(head(s), head(stream_tail(s))), 
                 () => interleave_stream_append(
-                        stream_map( x => pair(head(s), x), stream_tail(stream_tail(s))),
+                        stream_map( x => pair(head(s), x), 
+                                    stream_tail(stream_tail(s))),
                         stream_pairs3(stream_tail(s))));
 }
 
