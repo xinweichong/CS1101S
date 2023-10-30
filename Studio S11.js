@@ -32,3 +32,10 @@ const zeros2 = subtract_series(alt_ones, alt_ones);
 
 eval_stream(zeros2, 10);
 
+const s1 = pair(1, () => s1);
+
+eval_stream(s1, 10);
+
+const s2 = pair(1, () => add_streams(s1, s2));
+
+eval_stream(s2, 10);
