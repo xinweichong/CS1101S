@@ -12,7 +12,27 @@
 
 function evaluate_BAE_tree(bae_tree) {
 
-    // WRITE HERE.
+    if (is_number(bae_tree)) {
+        return bae_tree;
+    } else {
+        const a = head(bae_tree);
+        const b = head(tail(bae_tree));
+        const c = head(tail(tail(bae_tree)));
+        
+        function op(str, x, y) {
+            return (str === "+")
+                   ? x + y
+                   : (str === "*")
+                   ? x * y
+                   : (str === "/")
+                   ? x / y
+                   : (str === "-")
+                   ? x - y
+                   : undefined;
+        }
+        
+        return op(b, evaluate_BAE_tree(a), evaluate_BAE_tree(c));
+    }
 
 }
 
@@ -24,8 +44,16 @@ function evaluate_BAE_tree(bae_tree) {
 
 function build_BAE_tree(bae_list) {
 
-    // WRITE HERE.
-
+    let result = null;
+    
+    function helper(ls) {
+        if (head(ls) === "(") {
+            return list(helper(tail(ls)));
+        } else if (head(ls) === ")") {
+            return null;
+        } else if ()
+    }
+    
 }
 
 
