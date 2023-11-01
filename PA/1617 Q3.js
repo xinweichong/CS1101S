@@ -44,23 +44,21 @@ function evaluate_BAE_tree(bae_tree) {
 
 function build_BAE_tree(bae_list) {
 
-    let result = null;
+    let stack = [];
+    let index = 0;
     
-    function helper(ls) {
-        if (head(ls) === "(") {
-            
-            
-            return list(helper(tail(ls)));
-        } else if (head(ls) === ")") {
-            return null;
-        } else {
-            return append(head(ls), helper(tail(ls)));
-        }
+    
+    for (let i = bae_list; !is_null(i); i = tail(i)) {
+        if (head(i) === "(") {
+            stack[index] = [];
+        } else if head(i)
     }
     
-    return helper(bae_list);
-    
 }
+
+const bae_tree = 23;
+const bae_list = list("(", 5, "*", "(", 7, "+", 3, ")", ")");
+display_list(build_BAE_tree(bae_list));
 
 
 
