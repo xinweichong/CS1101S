@@ -118,10 +118,13 @@ function find_gene_end(xs) {
 ////////////////////////////////////////////////////////////
 
 function all_genes(xs) {
-
-    // WRITE HERE.
+    
+    
 
 }
+
+display_list(all_genes(list("A", "A", "T", "G", "A", "C", "T",
+                                    "A", "G", "G")));
 
 
 
@@ -563,32 +566,32 @@ assert(
 // // Test Cases for Q1G
 // ////////////////////////////////////////////////////////////
 
-// assert(
-//     () => {
-//         return equal(all_genes(list("C", "T", "A", "A", "G", "C")),
-//                      null);
-//     },
-//     "Q1G-P01",
-//     ['all_genes']
-// );
+assert(
+    () => {
+        return equal(all_genes(list("C", "T", "A", "A", "G", "C")),
+                     null);
+    },
+    "Q1G-P01",
+    ['all_genes']
+);
 
-// assert(
-//     () => {
-//         return equal(all_genes(list("A", "A", "T", "G", "A", "C", "T",
-//                                     "A", "G", "G")),
-//                      list(list("A", "C")));
-//     },
-//     "Q1G-P02",
-//     ['all_genes']
-// );
+assert(
+    () => {
+        return equal(all_genes(list("A", "A", "T", "G", "A", "C", "T",
+                                    "A", "G", "G")),
+                     list(list("A", "C")));
+    },
+    "Q1G-P02",
+    ['all_genes']
+);
 
-// assert(
-//     () => {
-//         return equal(all_genes(list("T", "A", "T", "G", "C", "A", "T",
-//                                     "A", "A", "G", "T", "A", "G", "A",
-//                                     "T", "G", "A", "T", "G", "A", "T")),
-//                      list(list("C", "A"), list("A")));
-//     },
-//     "Q1G-P03",
-//     ['all_genes']
-// );
+assert(
+    () => {
+        return equal(all_genes(list("T", "A", "T", "G", "C", "A", "T",
+                                    "A", "A", "G", "T", "A", "G", "A",
+                                    "T", "G", "A", "T", "G", "A", "T")),
+                     list(list("C", "A"), list("A")));
+    },
+    "Q1G-P03",
+    ['all_genes']
+);
