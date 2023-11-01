@@ -48,11 +48,17 @@ function build_BAE_tree(bae_list) {
     
     function helper(ls) {
         if (head(ls) === "(") {
+            
+            
             return list(helper(tail(ls)));
         } else if (head(ls) === ")") {
             return null;
-        } else if ()
+        } else {
+            return append(head(ls), helper(tail(ls)));
+        }
     }
+    
+    return helper(bae_list);
     
 }
 
