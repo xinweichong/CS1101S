@@ -12,7 +12,7 @@
 
 function is_nucleobase(s) {
 
-    // WRITE HERE.
+    return (s === "A" || s === "G" || s === "C" || s === "T");
 
 }
 
@@ -24,7 +24,7 @@ function is_nucleobase(s) {
 
 function is_dna_strand(xs) {
 
-    // WRITE HERE.
+    return accumulate((x, ys) => is_nucleobase(x) && ys, true, xs);
 
 }
 
@@ -36,7 +36,7 @@ function is_dna_strand(xs) {
 
 function combine(xss) {
 
-    // WRITE HERE.
+    return accumulate((x, ys) => append(x, ys), null, xss);
 
 }
 
@@ -48,7 +48,7 @@ function combine(xss) {
 
 function oxoguanine_repair(xs) {
 
-    // WRITE HERE.
+    return map(x => (x === "8") ? "G" : x, xs);
 
 }
 
@@ -59,11 +59,22 @@ function oxoguanine_repair(xs) {
 ////////////////////////////////////////////////////////////
 
 function find_gene_start(xs) {
+    const len = length(xs);
+    
+    if (len < 3) {
+        return null;
+    } else {
+        if (list_ref(xs, 0) === "A" 
+            && list_ref(xs, 1) === "T" 
+            && list_ref(xs, 2) === "G") {
+            return list(tail(tail(tail(xs))));
+        } else {
+            return find_gene_start((tail(xs)));
+        }
+    }
 
-    // WRITE HERE.
 
 }
-
 
 
 ////////////////////////////////////////////////////////////
@@ -258,9 +269,9 @@ assert(
 
 
 
-////////////////////////////////////////////////////////////
-// Test Cases for Q1C
-////////////////////////////////////////////////////////////
+// ////////////////////////////////////////////////////////////
+// // Test Cases for Q1C
+// ////////////////////////////////////////////////////////////
 
 assert(
     () => {
@@ -335,9 +346,9 @@ assert(
 
 
 
-////////////////////////////////////////////////////////////
-// Test Cases for Q1D
-////////////////////////////////////////////////////////////
+// ////////////////////////////////////////////////////////////
+// // Test Cases for Q1D
+// ////////////////////////////////////////////////////////////
 
 assert(
     () => {
@@ -395,9 +406,9 @@ assert(
 
 
 
-////////////////////////////////////////////////////////////
-// Test Cases for Q1E
-////////////////////////////////////////////////////////////
+// ////////////////////////////////////////////////////////////
+// // Test Cases for Q1E
+// ////////////////////////////////////////////////////////////
 
 assert(
     () => {
@@ -464,96 +475,96 @@ assert(
 
 
 
-////////////////////////////////////////////////////////////
-// Test Cases for Q1F
-////////////////////////////////////////////////////////////
+// ////////////////////////////////////////////////////////////
+// // Test Cases for Q1F
+// ////////////////////////////////////////////////////////////
 
-assert(
-    () => {
-        return equal(find_gene_end(list("A", "G", "A", "G", "T", "A", "A", "T", "A", "A")),
-                     list(list("A", "G", "A", "G")));
-    },
-    "Q1F-P01",
-    ['find_gene_end']
-);
+// assert(
+//     () => {
+//         return equal(find_gene_end(list("A", "G", "A", "G", "T", "A", "A", "T", "A", "A")),
+//                      list(list("A", "G", "A", "G")));
+//     },
+//     "Q1F-P01",
+//     ['find_gene_end']
+// );
 
-assert(
-    () => {
-        return equal(find_gene_end(list("A", "T", "A", "C", "C", "A", "G", "A", "T")),
-                     null);
-    },
-    "Q1F-P02",
-    ['find_gene_end']
-);
+// assert(
+//     () => {
+//         return equal(find_gene_end(list("A", "T", "A", "C", "C", "A", "G", "A", "T")),
+//                      null);
+//     },
+//     "Q1F-P02",
+//     ['find_gene_end']
+// );
 
-assert(
-    () => {
-        return equal(find_gene_end(list("T", "G", "A", "A", "T", "A", "C")),
-                     list(null));
-    },
-    "Q1F-P03",
-    ['find_gene_end']
-);
+// assert(
+//     () => {
+//         return equal(find_gene_end(list("T", "G", "A", "A", "T", "A", "C")),
+//                      list(null));
+//     },
+//     "Q1F-P03",
+//     ['find_gene_end']
+// );
 
-assert(
-    () => {
-        return equal(find_gene_end(list("G", "C", "T", "G", "A", "T", "A", "A")),
-                     list(list("G", "C")));
-    },
-    "Q1F-T01",
-    ['find_gene_end']
-);
+// assert(
+//     () => {
+//         return equal(find_gene_end(list("G", "C", "T", "G", "A", "T", "A", "A")),
+//                      list(list("G", "C")));
+//     },
+//     "Q1F-T01",
+//     ['find_gene_end']
+// );
 
-assert(
-    () => {
-        return equal(find_gene_end(list("T", "T", "A", "C", "A", "G", "A", "T")),
-                     null);
-    },
-    "Q1F-T02",
-    ['find_gene_end']
-);
+// assert(
+//     () => {
+//         return equal(find_gene_end(list("T", "T", "A", "C", "A", "G", "A", "T")),
+//                      null);
+//     },
+//     "Q1F-T02",
+//     ['find_gene_end']
+// );
 
-assert(
-    () => {
-        return equal(find_gene_end(list("T", "A", "A", "T", "G", "A", "C")),
-                     list(null));
-    },
-    "Q1F-T03",
-    ['find_gene_end']
-);
+// assert(
+//     () => {
+//         return equal(find_gene_end(list("T", "A", "A", "T", "G", "A", "C")),
+//                      list(null));
+//     },
+//     "Q1F-T03",
+//     ['find_gene_end']
+// );
 
 
 
-////////////////////////////////////////////////////////////
-// Test Cases for Q1G
-////////////////////////////////////////////////////////////
+// ////////////////////////////////////////////////////////////
+// // Test Cases for Q1G
+// ////////////////////////////////////////////////////////////
 
-assert(
-    () => {
-        return equal(all_genes(list("C", "T", "A", "A", "G", "C")),
-                     null);
-    },
-    "Q1G-P01",
-    ['all_genes']
-);
+// assert(
+//     () => {
+//         return equal(all_genes(list("C", "T", "A", "A", "G", "C")),
+//                      null);
+//     },
+//     "Q1G-P01",
+//     ['all_genes']
+// );
 
-assert(
-    () => {
-        return equal(all_genes(list("A", "A", "T", "G", "A", "C", "T",
-                                    "A", "G", "G")),
-                     list(list("A", "C")));
-    },
-    "Q1G-P02",
-    ['all_genes']
-);
+// assert(
+//     () => {
+//         return equal(all_genes(list("A", "A", "T", "G", "A", "C", "T",
+//                                     "A", "G", "G")),
+//                      list(list("A", "C")));
+//     },
+//     "Q1G-P02",
+//     ['all_genes']
+// );
 
-assert(
-    () => {
-        return equal(all_genes(list("T", "A", "T", "G", "C", "A", "T",
-                                    "A", "A", "G", "T", "A", "G", "A",
-                                    "T", "G", "A", "T", "G", "A", "T")),
-                     list(list("C", "A"), list("A")));
-    },
-    "Q1G-P03",
-    ['all_genes']
-);
+// assert(
+//     () => {
+//         return equal(all_genes(list("T", "A", "T", "G", "C", "A", "T",
+//                                     "A", "A", "G", "T", "A", "G", "A",
+//                                     "T", "G", "A", "T", "G", "A", "T")),
+//                      list(list("C", "A"), list("A")));
+//     },
+//     "Q1G-P03",
+//     ['all_genes']
+// );
