@@ -11,8 +11,20 @@
 ////////////////////////////////////////////////////////////
 
 function all_different(nums) {
-
-    // WRITE HERE.
+    
+    if (length(nums) === 1) {
+        return true;
+    } else {
+        const x = head(nums);
+        let valid = true;
+        
+        for (let y = tail(nums); !is_null(y); y = tail(y)) {
+            if (x === head(y)) {
+                valid = false;
+            }
+        }
+        return valid && all_different(tail(nums));
+    }
 
 }
 
@@ -24,7 +36,18 @@ function all_different(nums) {
 
 function is_valid_toto_set(nums, n, min, max) {
 
-    // WRITE HERE.
+    const len = length(nums);
+    
+    if (len !== n) {
+        return false;
+    } else {
+        const filtered = filter(x => x < min || x > max, nums);
+        if (!is_null(filtered)) {
+            return false; 
+        } else {
+            return all_different(nums);
+        }
+    }
 
 }
 
@@ -35,8 +58,21 @@ function is_valid_toto_set(nums, n, min, max) {
 ////////////////////////////////////////////////////////////
 
 function num_of_matches(numsA, numsB) {
+    
+    let count = 0;
 
-    // WRITE HERE.
+    for (let i = numsA; !is_null(i); i = tail(i)) {
+        const x = head(i);
+        
+        for (let j = numsB; !is_null(j); j = tail(j)) {
+            const y = head(j);
+            if (x === y) {
+                count = count + 1;
+            }
+        }
+    }
+    
+    return count;
 
 }
 
@@ -47,9 +83,25 @@ function num_of_matches(numsA, numsB) {
 ////////////////////////////////////////////////////////////
 
 function check_winning_group(bet_nums, draw_nums, extra_num) {
+    
+    const n = length(bet_nums);
 
-    // WRITE HERE.
-
+    const match = (num_of_matches(bet_nums, draw_nums));
+    
+    if (match < n - 2) {
+        return 0;
+    } else if (match === n) {
+        return 1;
+    } else if (match === n - 1) {
+        return (!is_null(filter(x => x === extra_num, bet_nums)))
+                ? 2
+                : 3;
+    } else {
+        return (!is_null(filter(x => x === extra_num, bet_nums)))
+                ? 4
+                : 5;        
+    }
+    
 }
 
 
