@@ -59,8 +59,9 @@ function oxoguanine_repair(xs) {
 ////////////////////////////////////////////////////////////
 
 function find_gene_start(xs) {
-    const len = length(xs);
     
+    const len = length(xs);
+
     if (len < 3) {
         return null;
     } else {
@@ -72,8 +73,6 @@ function find_gene_start(xs) {
             return find_gene_start((tail(xs)));
         }
     }
-
-
 }
 
 
@@ -82,11 +81,36 @@ function find_gene_start(xs) {
 ////////////////////////////////////////////////////////////
 
 function find_gene_end(xs) {
-
-    // WRITE HERE.
+    
+    const arr = [];
+    const len = length(xs);
+    let result = null;
+    
+    for (let k = 0; k < len; k = k + 1) {
+        arr[k] = head(xs);
+        xs = tail(xs);
+    }
+    
+    let i = 0;
+    for (i; i < len; i = i + 1) {
+        if ((arr[i] === "T") && ((arr[i+1] === "A" && arr[i+2] === "G")
+                                || (arr[i+1] === "A" && arr[i+2] === "A")
+                                || (arr[i+1] === "G" && arr[i+2] === "A"))) {
+            break;
+        }
+    }
+    
+    if (i === len) {
+        return null;
+    } else {
+        for (let j = 0; j < i; j = j + 1) {
+            result = pair(arr[j], result);
+        }
+    }
+    
+    return list(reverse(result));
 
 }
-
 
 
 ////////////////////////////////////////////////////////////
@@ -479,59 +503,59 @@ assert(
 // // Test Cases for Q1F
 // ////////////////////////////////////////////////////////////
 
-// assert(
-//     () => {
-//         return equal(find_gene_end(list("A", "G", "A", "G", "T", "A", "A", "T", "A", "A")),
-//                      list(list("A", "G", "A", "G")));
-//     },
-//     "Q1F-P01",
-//     ['find_gene_end']
-// );
+assert(
+    () => {
+        return equal(find_gene_end(list("A", "G", "A", "G", "T", "A", "A", "T", "A", "A")),
+                     list(list("A", "G", "A", "G")));
+    },
+    "Q1F-P01",
+    ['find_gene_end']
+);
 
-// assert(
-//     () => {
-//         return equal(find_gene_end(list("A", "T", "A", "C", "C", "A", "G", "A", "T")),
-//                      null);
-//     },
-//     "Q1F-P02",
-//     ['find_gene_end']
-// );
+assert(
+    () => {
+        return equal(find_gene_end(list("A", "T", "A", "C", "C", "A", "G", "A", "T")),
+                     null);
+    },
+    "Q1F-P02",
+    ['find_gene_end']
+);
 
-// assert(
-//     () => {
-//         return equal(find_gene_end(list("T", "G", "A", "A", "T", "A", "C")),
-//                      list(null));
-//     },
-//     "Q1F-P03",
-//     ['find_gene_end']
-// );
+assert(
+    () => {
+        return equal(find_gene_end(list("T", "G", "A", "A", "T", "A", "C")),
+                     list(null));
+    },
+    "Q1F-P03",
+    ['find_gene_end']
+);
 
-// assert(
-//     () => {
-//         return equal(find_gene_end(list("G", "C", "T", "G", "A", "T", "A", "A")),
-//                      list(list("G", "C")));
-//     },
-//     "Q1F-T01",
-//     ['find_gene_end']
-// );
+assert(
+    () => {
+        return equal(find_gene_end(list("G", "C", "T", "G", "A", "T", "A", "A")),
+                     list(list("G", "C")));
+    },
+    "Q1F-T01",
+    ['find_gene_end']
+);
 
-// assert(
-//     () => {
-//         return equal(find_gene_end(list("T", "T", "A", "C", "A", "G", "A", "T")),
-//                      null);
-//     },
-//     "Q1F-T02",
-//     ['find_gene_end']
-// );
+assert(
+    () => {
+        return equal(find_gene_end(list("T", "T", "A", "C", "A", "G", "A", "T")),
+                     null);
+    },
+    "Q1F-T02",
+    ['find_gene_end']
+);
 
-// assert(
-//     () => {
-//         return equal(find_gene_end(list("T", "A", "A", "T", "G", "A", "C")),
-//                      list(null));
-//     },
-//     "Q1F-T03",
-//     ['find_gene_end']
-// );
+assert(
+    () => {
+        return equal(find_gene_end(list("T", "A", "A", "T", "G", "A", "C")),
+                     list(null));
+    },
+    "Q1F-T03",
+    ['find_gene_end']
+);
 
 
 
