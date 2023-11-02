@@ -129,8 +129,13 @@ function digits_to_string(digits) {
 // TASK 2A
 //===============================================================
 function build_largest_int(digits) {
+    
+    const copy_digits = copy_array(digits);
+    
+    sort_ascending(copy_digits);
+    reverse_array(copy_digits);
 
-    // WRITE HERE.
+    return digits_to_string(copy_digits);
 
 }
 
@@ -154,9 +159,31 @@ assert("2A_6", () => build_largest_int([5,5,5,5,5,5,5,5,5,5]),
 // TASK 2B
 //===============================================================
 function build_2nd_largest_int(digits) {
+    
+    const copy_digits = copy_array(digits);
+    
+    sort_ascending(copy_digits);
 
-    // WRITE HERE.
-
+    const i = array_length(copy_digits) - 1;
+    
+    function check_equal(id) {
+        if (id < i) {
+            const a = copy_digits[id];
+            const b = copy_digits[id + 1];
+            
+            if (a === b) {
+                return check_equal(id + 1);
+            } else {
+                swap(copy_digits, id, id + 1);
+            }
+        }
+    }
+    
+    check_equal(0);
+    
+    reverse_array(copy_digits);
+    return digits_to_string(copy_digits);
+    
 }
 
 
@@ -180,8 +207,10 @@ assert("2B_6", () => build_2nd_largest_int([5,5,5,5,5,5,5,5,5,5]),
 //===============================================================
 function build_nth_largest_int(digits, n) {
 
-    // WRITE HERE.
-
+    const copy_digits = copy_array(digits);
+    
+    
+    
 }
 
 
