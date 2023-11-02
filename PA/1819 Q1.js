@@ -188,6 +188,8 @@ function big_int_mult_by_digit(bint, digit) {
             if (val > 9) {
                 carry = math_floor(val / 10);
                 val = val % 10;
+            } else {
+                carry = 0;
             }
             
             result = pair(val, result);
@@ -249,10 +251,37 @@ assert("1E_4", () => big_int_mult_by_10_pow_n(list(5,8,3,1), 20),
 //===============================================================
 function big_int_mult(bintX, bintY) {
 
-    // WRITE HERE.
+    const lenX = length(bintX);
+    const lenY = length(bintY);
+    
+    let base = 0;
+    let index = 0;
+    let len = 0;
+    
+    if (lenX > lenY) {
+        base = bintX;
+        index = bintY;
+    } else {
+        base = bintY;
+        index = bintX;
+
+    }
+    
+    let result = list(0);
+    
+    for (index; !is_null(index); index = tail(index)) {
+        let val = head(index);
+        
+        val = big_int_mult_by_digit(base, val);
+        val = big_int_mult_by_10_pow_n(val, len);
+        len = len + 1;
+        
+        result = big_int_add(val, result);
+    }
+    
+    return result;
 
 }
-
 
 // TASK 1F TESTS
 assert("1F_1", () => big_int_mult(list(0), list(0)),
