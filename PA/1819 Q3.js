@@ -54,7 +54,24 @@ function assert(test_name, test_func, truth, dependence) {
 //===============================================================
 function count_lower_neighbors(emap, r, c) {
 
-    // WRITE HERE.
+    const rows = array_length(emap);
+    const cols = array_length(emap[0]);
+    
+    if ((r <= 0) || (c <= 0) || (r >= rows - 1) || (c >= cols - 1)) {
+        return 0;
+    } else {
+        let count = 0;
+        
+        for (let x = r - 1; x <= r + 1; x = x + 1) {
+            for (let y = c - 1; y <= c + 1; y = y + 1) {
+                if (emap[x][y] < emap[r][c]) {
+                    count = count + 1;
+                }
+            }
+        }
+        
+        return count;
+    }
 
 }
 
@@ -82,7 +99,20 @@ assert("3A(I)_8", () => count_lower_neighbors(emapA1, 4, 4), 6, []);
 //===============================================================
 function count_peaks(emap) {
 
-    // WRITE HERE.
+    const rows = array_length(emap);
+    const cols = array_length(emap[0]);
+    
+    let peaks = 0;
+    
+    for (let x = 1; x < rows - 1; x = x + 1) {
+        for (let y = 1; y < cols - 1; y = y + 1) {
+            if (count_lower_neighbors(emap, x, y) === 8) {
+                peaks = peaks + 1;
+            }
+        }
+    }
+    
+    return peaks;
 
 }
 
@@ -120,7 +150,45 @@ assert("3A(II)_4", () => count_peaks(emapA2b),
 //===============================================================
 function count_islands(emap) {
 
-    // WRITE HERE.
+    const rows = array_length(emap);
+    const cols = array_length(emap[0]);
+    
+    //populate a result matrix with 0
+    let result = [];
+    for (let i = 0; i < rows; i = i + 1) {
+        result[i] = [];
+        for (let j = 0; j < cols; j = j + 1) {
+            result[i][j] = 0;
+        }
+    }
+    
+    function connector(row, col, counter) {
+        if (row >= 0 && col >= 0 && row < rows && col < cols) {
+            if ((emap[row][col] !== 0) && (result[row][col] === 0)) {
+                result[row][col] = counter;
+                connector(row - 1, col, counter);
+                connector(row + 1, col, counter);
+                connector(row, col - 1, counter);
+                connector(row, col + 1, counter);
+            }
+        }
+    } 
+    
+    let count = 0;
+    
+    
+    for (let r = 0; r < rows; r = r + 1) {
+        for (let c = 0; c < cols; c = c + 1) {
+            const val = emap[r][c];
+            
+            if (val !== 0 && result[r][c] === 0) {
+                count = count + 1;
+                connector(r, c, count);
+            }
+        }
+    }
+    
+    return count;
 
 }
 
