@@ -93,11 +93,15 @@ function check_parentheses(paren_list) {
     let index = 0;
     
     function pop() {
-        if (stack[index - 1] === "(") {
-            stack[index - 1] = undefined;
-            stack[index] = undefined;
-            
-            index = index - 1;            
+        if (index > 0) {
+            if (stack[index - 1] === "(") {
+                stack[index - 1] = undefined;
+                stack[index] = undefined;
+                
+                index = index - 1;            
+            } else {
+                index = index + 1;
+            }
         } else {
             index = index + 1;
         }
