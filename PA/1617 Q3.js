@@ -44,22 +44,30 @@ function evaluate_BAE_tree(bae_tree) {
 
 function build_BAE_tree(bae_list) {
 
-    let stack = [];
-    let index = 0;
+    let index = bae_list;
     
-    
-    for (let i = bae_list; !is_null(i); i = tail(i)) {
-        if (head(i) === "(") {
-            stack[index] = [];
-        } else if head(i)
+    function build_tree() {
+        if (head(index) === "(") {
+            index = tail(index);
+            
+            const left = build_tree();
+            const op = head(index);
+            index = tail(index);
+            
+            const right = build_tree();
+            index = tail(index);
+            
+            return list(left, op, right);
+        } else {
+            const val = head(index);
+            index = tail(index);
+            return val;
+        }
     }
     
+    return build_tree();
+    
 }
-
-const bae_tree = 23;
-const bae_list = list("(", 5, "*", "(", 7, "+", 3, ")", ")");
-display_list(build_BAE_tree(bae_list));
-
 
 
 ////////////////////////////////////////////////////////////
@@ -68,7 +76,7 @@ display_list(build_BAE_tree(bae_list));
 
 function evaluate_BAE(bae_list) {
 
-    // WRITE HERE.
+    return evaluate_BAE_tree(build_BAE_tree(bae_list));
 
 }
 
@@ -80,11 +88,53 @@ function evaluate_BAE(bae_list) {
 
 function check_parentheses(paren_list) {
 
-    // WRITE HERE.
+    const len = length(paren_list);
+    const stack = [];
+    let index = 0;
+    
+    function pop() {
+        if (stack[index - 1] === "(") {
+            stack[index - 1] = undefined;
+            stack[index] = undefined;
+            
+            index = index - 1;            
+        } else {
+            index = index + 1;
+        }
+    }
+    
+    for (let i = paren_list; !is_null(i); i = tail(i)) {
+        const value = head(i);
+        
+        stack[index] = value;
+        if (value === ")") {
+            pop();
+        } else {
+            index = index + 1;
+        }
+    }
+    
+    for (let j = 0; j < len; j = j + 1) {
+        if (stack[j] !== undefined) {
+            return false;
+        }
+    }
+    return true;
+    
+    // function check(count, xs) {
+    //     if (is_null(xs)) {
+    //         return (count === 0);
+    //     } else if (count < 0) {
+    //         return false;
+    //     } else if (head(xs) === "(") {
+    //         return check(count + 1, tail(xs));
+    //     } else { // (head(xs) === ")")
+    //         return check(count - 1, tail(xs));
+    //     }
+    // }
 
+    // return check(0, paren_list);
 }
-
-
 
 ////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////
