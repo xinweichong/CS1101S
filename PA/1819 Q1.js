@@ -54,7 +54,21 @@ function assert(test_name, test_func, truth, dependence) {
 //===============================================================
 function make_big_int_from_number(num) {
 
-    // WRITE HERE.
+    if (num === 0) {
+        return list(0);
+    } else {
+        let result = null;
+        
+        let value = 0;
+        
+        while (num > 0) {
+            value = num % 10;
+            result = pair(value, result);
+            num = (num - value) / 10;
+        }
+        
+        return reverse(result);
+    }
 
 }
 
@@ -76,8 +90,14 @@ assert("1A_5", () => make_big_int_from_number(9876543210),
 // TASK 1B
 //===============================================================
 function big_int_to_string(bint) {
+    
+    let str = "";
 
-    // WRITE HERE.
+    for (let i = bint; !is_null(i); i = tail(i)) {
+        str = stringify(head(i)) + str;
+    }
+    
+    return str;
 
 }
 
@@ -109,8 +129,22 @@ function big_int_add(bintX, bintY) {
         if (is_null(x) && is_null(y)) {
             return (carry === 0) ? null : pair(carry, null);
         } else {
+            
+            const a = is_null(x) ? 0 : head(x);
+            const b = is_null(y) ? 0 : head(y);
+            
+            const a2 = is_null(x) ? null : tail(x);
+            const b2 = is_null(y) ? null : tail(y);
+            let result = a + b + carry;
+            
+            if (result > 9) {
+                result = result - 10;
+                carry = 1;
+            } else {
+                carry = 0;
+            }
 
-            // WRITE HERE.
+            return pair(result, add(a2, b2, carry));
 
         }
     }
@@ -140,10 +174,31 @@ assert("1C_6", () => big_int_add(
 //===============================================================
 function big_int_mult_by_digit(bint, digit) {
 
-    // WRITE HERE.
-
+    if (digit === 0) {
+        return list(0);
+    } else {
+        const mapped = map(x => digit * x, bint);
+        
+        let result = null;
+        let carry = 0;
+        
+        for (let i = mapped; !is_null(i); i = tail(i)) {
+            let val = head(i) + carry;
+            
+            if (val > 9) {
+                carry = math_floor(val / 10);
+                val = val % 10;
+            }
+            
+            result = pair(val, result);
+        }
+        
+        result = (carry === 0) ? result : pair(carry, result);
+        
+        return reverse(result);
+    }
+    
 }
-
 
 // TASK 1D TESTS
 assert("1D_1", () => big_int_mult_by_digit(list(0), 5),
@@ -163,7 +218,13 @@ assert("1D_4", () => big_int_mult_by_digit(
 //===============================================================
 function big_int_mult_by_10_pow_n(bint, n) {
 
-    // WRITE HERE.
+    if ((head(bint) === 0 && length(bint) === 1) || (n === 0)) {
+        return bint;
+    } else {
+        let result = bint;
+        
+        return big_int_mult_by_10_pow_n(pair(0, result), n - 1);
+    }
 
 }
 
