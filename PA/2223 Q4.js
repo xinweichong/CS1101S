@@ -14,9 +14,7 @@ function shortest_path_length(maze, start_row, start_col) {
     for (let i = 0; i < rows; i = i + 1) {
         dist[i] = [];
         for (let j = 0; j < cols; j = j + 1) {
-            dist[i][j] = (i === start_row && j === start_col)
-                         ? 0
-                         : (maze[i][j] === E || maze[i][j] === G) 
+            dist[i][j] = (maze[i][j] === E || maze[i][j] === G) 
                          ? undefined
                          : maze[i][j];
                          
@@ -34,11 +32,21 @@ function shortest_path_length(maze, start_row, start_col) {
             if ((dist[row][col] !== O)) {
                 if ((dist[row][col] === undefined)) {
                     dist[row][col] = val;
-                }
-                distance_adder(val + 1, row - 1, col);
-                distance_adder(val + 1, row + 1, col);
-                // distance_adder(val + 1, row, col - 1);
-                // distance_adder(val + 1, row, col + 1);
+                    distance_adder(val + 1, row - 1, col);
+                    distance_adder(val + 1, row + 1, col);
+                    distance_adder(val + 1, row, col - 1);
+                    distance_adder(val + 1, row, col + 1);
+                } else if (is_number(dist[row][col])) {
+                    const curr = dist[row][col];
+                    if (val < curr) {
+                        dist[row][col] = val;
+                        distance_adder(val + 1, row - 1, col);
+                        distance_adder(val + 1, row + 1, col);
+                        distance_adder(val + 1, row, col - 1);
+                        distance_adder(val + 1, row, col + 1);
+                    }
+                } else {}
+                
             }
 
         } 
@@ -55,12 +63,3 @@ function shortest_path_length(maze, start_row, start_col) {
     }
     
 }
-
-const maze = 
-[[".", "#", ".", "#"],
- [".", "#", "#", "."],
- [".", ".", ".", "G"],
- [".", "#", ".", "."],
- [".", ".", ".", "#"]];
- 
- shortest_path_length(maze, 0, 0);
