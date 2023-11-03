@@ -27,26 +27,34 @@ function tail_n_times(xs, n) {
 }
 
 function subseq_replace(new_sub, old_sub, seq) {
-    const len_old = length(old_sub);
+    // const len_old = length(old_sub);
     
-    const rev_new = reverse(new_sub);
+    // const rev_new = reverse(new_sub);
     
-    let result = null;
+    // let result = null;
     
-    while(!is_null(seq)) {
+    // while(!is_null(seq)) {
         
-        if (!is_prefix_of(old_sub, seq)) {
-            result = pair(head(seq), result);
-            seq = tail(seq);
-        } else {
-            result = append(rev_new, result);
-            seq = tail_n_times(seq, len_old);
-        }
+    //     if (!is_prefix_of(old_sub, seq)) {
+    //         result = pair(head(seq), result);
+    //         seq = tail(seq);
+    //     } else {
+    //         result = append(rev_new, result);
+    //         seq = tail_n_times(seq, len_old);
+    //     }
     
+    // }
+    
+    // return reverse(result);
+    
+    const len_old = length(old_sub);
+
+    if (is_null(seq)) {
+        return null; 
+    } else if (!is_prefix_of(old_sub, seq)) {
+        return pair(head(seq), subseq_replace(new_sub, old_sub, tail(seq)));
+    } else {
+        return append(new_sub, subseq_replace(new_sub, old_sub, tail_n_times(seq, len_old)));
     }
-    
-    return reverse(result);
-    
+
 }
-
-
