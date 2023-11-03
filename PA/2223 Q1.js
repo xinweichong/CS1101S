@@ -1,20 +1,24 @@
 //Task 1A
 function insert_subseq(L, pos, S) {
     
-    let result = null;
-    const len_L = length(L);
-    const len_S = length(S);
+    // let result = null;
+    // const len_L = length(L);
+    // const len_S = length(S);
     
-    for (let i = 0; i < (len_L + len_S); i = i + 1) {
-        if (i >= pos && !is_null(S)) {
-            result = pair(head(S), result);
-            S = tail(S);
-        } else {
-            result = pair(head(L), result);
-            L = tail(L);
-        }
-    }
-    return reverse(result);
+    // for (let i = 0; i < (len_L + len_S); i = i + 1) {
+    //     if (i >= pos && !is_null(S)) {
+    //         result = pair(head(S), result);
+    //         S = tail(S);
+    //     } else {
+    //         result = pair(head(L), result);
+    //         L = tail(L);
+    //     }
+    // }
+    // return reverse(result);
+    
+    return (pos === 0)
+            ? append(L, S);
+            : pair(head(L), insert_subseq(tail(L), pos - 1, S));
 }
 
 
