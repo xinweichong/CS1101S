@@ -27,24 +27,26 @@ function shortest_path_length(maze, start_row, start_col) {
         }
     }
     
-    display(dist);
     
     function distance_adder(val, row, col) {
+        
         if ((row >= 0) && (col >= 0) && (row < rows) && (col < cols)) {
             if ((dist[row][col] !== O)) {
-                if (!is_number(dist[row][col])) {
+                if ((dist[row][col] === undefined)) {
                     dist[row][col] = val;
                 }
                 distance_adder(val + 1, row - 1, col);
                 distance_adder(val + 1, row + 1, col);
-                distance_adder(val + 1, row, col - 1);
-                distance_adder(val + 1, row, col + 1);
+                // distance_adder(val + 1, row, col - 1);
+                // distance_adder(val + 1, row, col + 1);
             }
 
         } 
     }
     
     distance_adder(0, start_row, start_col);
+    
+    display(dist);
     
     if (is_number(dist[target_row][target_col])) {
         return dist[target_row][target_col];
