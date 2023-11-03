@@ -39,10 +39,10 @@ function shortest_path_length(maze, start_row, start_col) {
                     dist[row][col] = val;
                 }
                 
-                distance_adder(val, row - 1, col);
-                distance_adder(val, row + 1, col);
-                distance_adder(val, row, col - 1);
-                distance_adder(val, row, col + 1);
+                distance_adder(val + 1, row - 1, col);
+                distance_adder(val + 1, row + 1, col);
+                distance_adder(val + 1, row, col - 1);
+                distance_adder(val + 1, row, col + 1);
             }
 
         } 
