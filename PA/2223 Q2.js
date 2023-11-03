@@ -46,14 +46,13 @@ function subseq_replace(new_sub, old_sub, seq) {
     // }
     
     // return reverse(result);
-    
-    const len_old = length(old_sub);
 
     if (is_null(seq)) {
         return null; 
     } else if (!is_prefix_of(old_sub, seq)) {
         return pair(head(seq), subseq_replace(new_sub, old_sub, tail(seq)));
     } else {
+        const len_old = length(old_sub);
         return append(new_sub, subseq_replace(new_sub, old_sub, tail_n_times(seq, len_old)));
     }
 
