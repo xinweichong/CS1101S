@@ -29,34 +29,28 @@ function shortest_path_length(maze, start_row, start_col) {
     
     display(dist);
     
-    // function distance_adder(val, row, col) {
-    //     if ((row >= 0) && (col >= 0) && (row < rows) && (col < cols)) {
-    //         if ((dist[row][col] !== O)) {
-    //             if (is_number(dist[row][col])) {
-    //                 const curr = dist[row][col];
-    //                 dist[row][col] = curr < val 
-    //                                  ? val
-    //                                  : curr;
-    //             } else {
-    //                 dist[row][col] = val;
-    //             }
-                
-    //             distance_adder(val + 1, row - 1, col);
-    //             distance_adder(val + 1, row + 1, col);
-    //             distance_adder(val + 1, row, col - 1);
-    //             distance_adder(val + 1, row, col + 1);
-    //         }
+    function distance_adder(val, row, col) {
+        if ((row >= 0) && (col >= 0) && (row < rows) && (col < cols)) {
+            if ((dist[row][col] !== O)) {
+                if (!is_number(dist[row][col])) {
+                    dist[row][col] = val;
+                }
+                distance_adder(val + 1, row - 1, col);
+                distance_adder(val + 1, row + 1, col);
+                distance_adder(val + 1, row, col - 1);
+                distance_adder(val + 1, row, col + 1);
+            }
 
-    //     } 
-    // }
+        } 
+    }
     
-    // distance_adder(0, start_row, start_col);
+    distance_adder(0, start_row, start_col);
     
-    // if (is_number(dist[target_row][target_col])) {
-    //     return dist[target_row][target_col];
-    // } else {
-    //     return Infinity;
-    // }
+    if (is_number(dist[target_row][target_col])) {
+        return dist[target_row][target_col];
+    } else {
+        return Infinity;
+    }
     
 }
 
@@ -67,4 +61,4 @@ const maze =
  [".", "#", ".", "."],
  [".", ".", ".", "#"]];
  
- shortest_path_length(maze, 2, 3);
+ shortest_path_length(maze, 0, 0);
