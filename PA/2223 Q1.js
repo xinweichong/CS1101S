@@ -25,17 +25,23 @@ function insert_subseq(L, pos, S) {
 //Task 1B
 function remove_subseq(L, start_pos, end_pos) {
     
-    let result = null;
-    const len = length(L);
+    // let result = null;
+    // const len = length(L);
     
-    for (let i = 0; i < len; i = i + 1) {
-        if ((i < start_pos) || (i > end_pos)) {
-            result = pair(head(L), result);
-        }
-        L = tail(L);
-    }
+    // for (let i = 0; i < len; i = i + 1) {
+    //     if ((i < start_pos) || (i > end_pos)) {
+    //         result = pair(head(L), result);
+    //     }
+    //     L = tail(L);
+    // }
     
-    return reverse(result);
+    // return reverse(result);
+    
+    return (end_pos === 0) 
+            ? null
+            : (start_pos === 0)
+            ? remove_subseq(tail(L), start_pos, end_pos - 1);
+            : pair(head(L), remove_subseq(tail(L), start_pos - 1, end_pos - 1));
     
 }
 
