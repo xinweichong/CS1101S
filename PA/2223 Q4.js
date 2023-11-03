@@ -28,15 +28,15 @@ function shortest_path_length(maze, start_row, start_col) {
     }
     
     function distance_adder(val, row, col) {
-        if (row >= 0 && col >= 0 && row < rows && col < cols) {
-            if (!dist[row][col] === O) {
+        if ((row >= 0) && (col >= 0) && (row < rows) && (col < cols)) {
+            if ((dist[row][col] !== O)) {
                 if (is_number(dist[row][col])) {
                     const curr = dist[row][col];
                     dist[row][col] = curr < val 
                                      ? val
                                      : curr;
                 } else {
-                    dist[i][j] = val;
+                    dist[row][col] = val;
                 }
                 
                 distance_adder(val, row - 1, col);
@@ -48,6 +48,21 @@ function shortest_path_length(maze, start_row, start_col) {
         } 
     }
     
+    distance_adder(0, start_row, start_col);
     
+    if (is_number(dist[target_row][target_col])) {
+        return dist[target_row][target_col];
+    } else {
+        return Infinity;
+    }
     
 }
+
+const maze = 
+[[".", "#", ".", "#"],
+ [".", "#", "#", "."],
+ [".", ".", ".", "G"],
+ [".", "#", ".", "."],
+ [".", ".", ".", "#"]];
+ 
+ shortest_path_length(maze, 2, 3);
